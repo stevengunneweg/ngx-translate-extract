@@ -12,6 +12,7 @@
     "ngx-translate-extract": "bin/cli.js"
   },
   "scripts": {
+    "publish:next": "npm run build && npm publish --tag next --access public",
     "build": "npm run clean && tsc",
     "watch": "npm run clean && tsc --watch",
     "clean": "rimraf ./dist",
@@ -62,6 +63,7 @@
   },
   "config": {},
   "devDependencies": {
+    "@angular/compiler": "^13",
     "@types/braces": "^3.0.1",
     "@types/chai": "^4.2.22",
     "@types/flat": "^5.0.2",

@@ -9,7 +9,7 @@ import { DirectiveParser } from '../parsers/directive.parser.js';
 import { ServiceParser } from '../parsers/service.parser.js';
 import { MarkerParser } from '../parsers/marker.parser.js';
 import { PostProcessorInterface } from '../post-processors/post-processor.interface.js';
-import { SortByKeyPostProcessor } from '../post-processors/sort-by-key.post-processor.js';
+import { SortByKeyPostProcessor, SortOptions } from '../post-processors/sort-by-key.post-processor.js';
 import { KeyAsDefaultValuePostProcessor } from '../post-processors/key-as-default-value.post-processor.js';
 import { NullAsDefaultValuePostProcessor } from '../post-processors/null-as-default-value.post-processor.js';
 import { StringAsDefaultValuePostProcessor } from '../post-processors/string-as-default-value.post-processor.js';
@@ -80,7 +80,8 @@ export const cli = y
 	.option('sort', {
 		alias: 's',
 		describe: 'Sort strings in alphabetical order',
-		type: 'boolean'
+		type: 'string',
+		choices: ['', 'case-insensitive']
 	})
 	.option('clean', {
 		alias: 'c',
@@ -139,8 +140,8 @@ if (cli.keyAsDefaultValue) {
 	postProcessors.push(new StringAsDefaultValuePostProcessor({ defaultValue: cli.stringAsDefaultValue as string }));
 }
 
-if (cli.sort) {
-	postProcessors.push(new SortByKeyPostProcessor());
+if (typeof cli.sort !== 'undefined') {
+	postProcessors.push(new SortByKeyPostProcessor(cli.sort as SortOptions));
 }
 extractTask.setPostProcessors(postProcessors);
 

@@ -28,9 +28,9 @@ const y = yargs().option('patterns', {
 	hidden: true
 });
 
-const parsed = y.parse();
+const parsed = await y.parse();
 
-export const cli = y
+export const cli = await y
 	.usage('Extract strings from files for translation.\nUsage: $0 [options]')
 	.version(process.env.npm_package_version)
 	.alias('version', 'v')
